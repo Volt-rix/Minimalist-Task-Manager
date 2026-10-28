@@ -65,7 +65,7 @@ input:focus-visible {
   outline-offset: 3px;
 }
 
-/* Top bar */
+/* Top bar that contains the page title and add-task button. */
 header {
   display: flex;
   align-items: center;
@@ -341,4 +341,153 @@ main {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+/* Toast container placed at the top-right of the page. */
+#toast-notifications {
+  position: absolute;
+  display: grid;
+  gap: 10px;
+  align-items: start;
+  align-content: start;
+  height: 90vh;
+  width: 100%;
+  max-width: 400px;
+  right: 0;
+  overflow: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.toast-notifications::-webkit-scrollbar {
+  display: none;
+}
+
+/* The message box shown for success, delete, and warning feedback. */
+.toast {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 360px;
+  padding: 14px 16px;
+  margin-top: 10px;
+  color: #262626;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  font-family: inherit;
+  z-index: 10000;
+}
+.toast {
+  animation: toast-in 250ms ease-out both;
+}
+
+/* Move each toast down while gently fading it in. */
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Exit animation added when a toast is being removed. */
+.toast.toast-out {
+  animation: toast-out 200ms ease-in forwards;
+}
+
+/* Move each toast upward while fading it out. */
+@keyframes toast-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+/* Keep toast animations comfortable for reduced-motion settings. */
+@media (prefers-reduced-motion: reduce) {
+  .toast,
+  .toast.toast-out {
+    animation-duration: 0.01ms;
+  }
+}
+
+.toast-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 28px;
+  height: 28px;
+
+  background: #f0f5f0;
+  border-radius: 50%;
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+}
+
+.toast-message {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin-left: 12px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.toast-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  padding: 0;
+
+  color: #a3a3a3;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+
+.toast-close:hover {
+  color: #262626;
+  background: #f5f5f5;
+}
+
+.toast-close:focus-visible {
+  outline: 2px solid #a3a3a3;
+  outline-offset: 2px;
+}
+
+/* Visually hide labels that should still be read by screen readers. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
