@@ -357,6 +357,7 @@ main {
   overflow: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  pointer-events: none;
 }
 .toast-notifications::-webkit-scrollbar {
   display: none;
@@ -377,6 +378,7 @@ main {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   font-family: inherit;
   z-index: 10000;
+  pointer-events: auto;
 }
 .toast {
   animation: toast-in 250ms ease-out both;
