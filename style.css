@@ -1,0 +1,344 @@
+/*
+  Minimalist task manager stylesheet
+  Based on the provided minimalist-ui design guide.
+  Compatible with: header, main, .cards, .submit, #btn-task,
+  #title-input, #Submit, #close, and .DeleteBtn.
+*/
+
+:root {
+  color-scheme: light;
+  --canvas: #f7f6f3;
+  --surface: #ffffff;
+  --surface-muted: #f9f9f8;
+  --ink: #2f3437;
+  --ink-strong: #111111;
+  --muted: #787774;
+  --border: #eaeaea;
+  --border-strong: #d8d7d2;
+  --pale-blue: #e1f3fe;
+  --blue-ink: #1f6c9f;
+  --pale-red: #fdebec;
+  --red-ink: #9f2f2d;
+  --pale-green: #edf3ec;
+  --green-ink: #346538;
+  --pale-yellow: #fbf3db;
+  --yellow-ink: #956400;
+  --radius-card: 10px;
+  --radius-control: 5px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  min-height: 100%;
+  background: var(--canvas);
+}
+
+body {
+  min-height: 100vh;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "SF Pro Display", "Geist Sans", "Helvetica Neue", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease,
+    transform 160ms ease;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #b9dced;
+  outline-offset: 3px;
+}
+
+/* Top bar */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 88px;
+  padding: 20px clamp(22px, 5vw, 72px);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-strong);
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+header h1,
+header h2 {
+  font-family: "Newsreader", "Playfair Display", Georgia, serif;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+}
+
+/* Primary actions */
+header button,
+#btn-task,
+#Submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  width: auto;
+  padding: 10px 17px;
+  border: 1px solid var(--ink-strong);
+  border-radius: var(--radius-control);
+  background: var(--ink-strong);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 550;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+header button:hover,
+#btn-task:hover,
+#Submit:hover {
+  background: #333333;
+  border-color: #333333;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive task grid */
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  align-content: start;
+  gap: 16px;
+  width: min(100%, 1240px);
+  margin-inline: auto;
+  padding: clamp(28px, 5vw, 64px) clamp(20px, 5vw, 56px) 80px;
+}
+
+/* Individual task cards */
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  min-height: 190px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.cards:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.035);
+  transform: translateY(-1px);
+}
+
+.cards p {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.cards p:first-child {
+  color: var(--ink-strong);
+  font-family: "Newsreader", "Playfair Display", Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.cards p:nth-child(2) {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: var(--pale-blue);
+  color: var(--blue-ink);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.045em;
+  line-height: 1.5;
+}
+
+/* The JS adds the DeleteBtn class to each task button. */
+.DeleteBtn,
+#DeleteBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  margin-top: auto;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  background: var(--pale-red);
+  color: var(--red-ink);
+  font-size: 0.85rem;
+  font-weight: 550;
+}
+
+.DeleteBtn:hover,
+#DeleteBtn:hover {
+  border-color: #f2c9cb;
+  background: #f9dfe0;
+}
+
+/* Add-task panel. JS opens it by setting display: grid. */
+.submit,
+#submit.submit {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  display: none;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  justify-items: stretch;
+  gap: 20px;
+  width: min(420px, calc(100vw - 32px));
+  height: auto;
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  margin: 0;
+  padding: clamp(24px, 5vw, 34px);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 0 0 100vmax rgba(17, 17, 17, 0.24);
+}
+
+.submit > div {
+  display: grid;
+  justify-items: stretch;
+  gap: 9px;
+  min-width: 0;
+}
+
+.submit p {
+  color: var(--ink-strong);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.submit label {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+
+/* The second direct child contains the priority options. */
+.submit > div:nth-child(2) {
+  gap: 10px;
+}
+
+.submit > div:nth-child(2) > div {
+  display: flex;
+  align-items: center;
+  justify-items: initial;
+  gap: 10px;
+}
+
+.submit input[type="text"] {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface-muted);
+  color: var(--ink-strong);
+}
+
+.submit input[type="text"]::placeholder {
+  color: #92918c;
+}
+
+.submit input[type="text"]:focus {
+  border-color: #9bbfd2;
+  background: var(--surface);
+}
+
+.submit input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ink-strong);
+  cursor: pointer;
+}
+
+#close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  width: auto;
+  padding: 9px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.92rem;
+}
+
+#close:hover {
+  background: var(--canvas);
+  border-color: #c8c7c1;
+}
+
+/* Small-screen adjustments */
+@media (max-width: 560px) {
+  header {
+    min-height: 76px;
+    gap: 14px;
+    padding: 16px 20px;
+  }
+
+  header button,
+  #btn-task {
+    min-height: 40px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  main {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 24px 16px 48px;
+  }
+
+  .cards {
+    min-height: 170px;
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
